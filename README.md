@@ -6,7 +6,7 @@ I like to dockerize all my tools so I am making this repo to dockerize Neovim.
 The first step is to build the the docker image.
 I call mine thornycrackers/neovim so you will have to change that accordingly for the following steps
 ```
-$ docker build -t=thornycrackers/phpcs .
+$ docker build -t=thornycrackers/neovim .
 ```
 
 # Step 2: Run the image
@@ -19,8 +19,8 @@ This will open up neovim and when you exit neovim it will exit the container.
 
 # Step 3: Make this command a little more useful
 So using that command is awesome but a little cumbersome everytime you want to run it against a different file.
-Create a file called 'phpcs' and make sure to give it executable permissions and place it somewhere in your $PATH.
-Copy the following inside of the 'phpcs' executable file.
+Create a file called 'nvim' and make sure to give it executable permissions and place it somewhere in your $PATH.
+Copy the following inside of the 'nvim' executable file.
 
 ```
 #!/bin/bash
