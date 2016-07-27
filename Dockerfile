@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
       neovim
 
 # Install the neovim python plugins
-RUN pip install neovim flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming
+RUN pip install neovim flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
 RUN pip3 install neovim
 
 # Download my Neovim Repo
