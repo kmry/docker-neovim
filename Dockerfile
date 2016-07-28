@@ -77,3 +77,6 @@ ENV PATH "$PATH:/root/.composer/vendor/bin"
 
 # Add Symfony 2 coding standard to the phpcs paths
 RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symfony2-coding-standard
+
+# Install custom linting
+ADD PEARish.xml /root/PEARish.xml
