@@ -47,4 +47,5 @@ RUN apt-get install -y \
 # https://github.com/airbnb/javascript/issues/952
 RUN npm install -g eslint@\^2.10.2 eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y@\^1.2.2
 
-
+# Install the eslintrc.json
+ADD eslintrc.json /root/.eslintrc.json
