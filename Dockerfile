@@ -28,6 +28,10 @@ RUN add-apt-repository ppa:neovim-ppa/unstable -y
 RUN apt-get update && apt-get install -y \
       neovim
 
+# Set git stuff
+RUN git config --global user.email "codyfh@gmail.com"
+RUN git config --global user.name "Cody Hiar"
+
 #####################################
 # Python Linting
 #####################################
