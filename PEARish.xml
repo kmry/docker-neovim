@@ -12,5 +12,6 @@
     <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag"/>
     <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag"/>
     <exclude name="PEAR.Commenting.FileComment.MissingVersion"/>
+    <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
  </rule>
 </ruleset>
