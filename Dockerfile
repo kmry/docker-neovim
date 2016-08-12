@@ -85,3 +85,5 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symf
 
 # Install custom linting
 ADD PEARish.xml /root/PEARish.xml
+
+WORKDIR /src
