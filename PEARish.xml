@@ -13,5 +13,6 @@
     <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag"/>
     <exclude name="PEAR.Commenting.FileComment.MissingVersion"/>
     <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
+    <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
  </rule>
 </ruleset>
