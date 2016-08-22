@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y \
       python3-dev \
       python3-pip \
       git \
-      silverseracher-ag \
+      ack-grep \
+      cabal-install \
       php5
 
 # Install Neovim
@@ -31,6 +32,14 @@ RUN apt-get update && apt-get install -y \
 # Set git stuff
 RUN git config --global user.email "codyfh@gmail.com"
 RUN git config --global user.name "Cody Hiar"
+
+#####################################
+# Shell Linting
+#####################################
+
+# Install Shellcheck
+RUN cabal update
+RUN cabal install shellcheck
 
 #####################################
 # Python Linting
@@ -77,13 +86,13 @@ RUN composer global require "squizlabs/php_codesniffer=*"
 # Install Symfony 2 coding standard
 RUN composer global require --dev escapestudios/symfony2-coding-standard:~2.0
 
-# Update the path to include composer bins
-ENV PATH "$PATH:/root/.composer/vendor/bin"
-
 # Add Symfony 2 coding standard to the phpcs paths
 RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symfony2-coding-standard
 
 # Install custom linting
 ADD PEARish.xml /root/PEARish.xml
+
+# Update the path to include composer bins and cabal bins
+ENV PATH "$PATH:$HOME/.composer/vendor/bin:$HOME/.cabal/bin"
 
 WORKDIR /src
