@@ -41,6 +41,9 @@ RUN git config --global user.name "Cody Hiar"
 RUN cabal update
 RUN cabal install shellcheck
 
+# Include the cabal bins
+ENV PATH "$PATH:/root/.cabal/bin"
+
 #####################################
 # Python Linting
 #####################################
@@ -81,6 +84,9 @@ ADD eslintrc.json /root/.eslintrc.json
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+# Update the path to include composer bins
+ENV PATH "$PATH:/root/.composer/vendor/bin"
+
 # Composer install Code Sniff
 RUN composer global require "squizlabs/php_codesniffer=*"
 # Install Symfony 2 coding standard
@@ -91,8 +97,5 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symf
 
 # Install custom linting
 ADD PEARish.xml /root/PEARish.xml
-
-# Update the path to include composer bins and cabal bins
-ENV PATH "$PATH:$HOME/.composer/vendor/bin:$HOME/.cabal/bin"
 
 WORKDIR /src
