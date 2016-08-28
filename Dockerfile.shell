@@ -1,0 +1,16 @@
+FROM thornycrackers/neovim:javascript
+MAINTAINER Cody Hiar <codyfh@gmail.com>
+
+# Install packages
+RUN apt-get update && apt-get install -y \
+      cabal-install
+
+# Install Shellcheck
+RUN cabal update
+RUN cabal install shellcheck
+
+# Include the cabal bins
+ENV PATH "$PATH:/root/.cabal/bin"
+
+
+
