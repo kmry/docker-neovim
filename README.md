@@ -6,7 +6,7 @@ I like to dockerize all my tools so I am making this repo to dockerize Neovim.
 The first step is to build the the docker image.
 I call mine thornycrackers/neovim so you will have to change that accordingly for the following steps
 ```
-$ docker build -t=thornycrackers/neovim .
+$ make build
 ```
 
 # Step 2: Run the image
