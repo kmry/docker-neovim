@@ -13,3 +13,9 @@ build-javascript: ## Build the neovim javascript image, depends on php tag
 
 build-shell: ## Build the neovim shell image, depends on javascript tag
 	docker build -f Dockerfile.shell -t thornycrackers/neovim .
+
+build: ## Build all the whole thing
+	make build-python
+	make build-php
+	make build-javascript
+	make build-shell
