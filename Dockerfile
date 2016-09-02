@@ -6,6 +6,7 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
 # Install all the needed packages
 RUN apk add --no-cache \
 			# My Stuff
+      zsh \
       php \
       php-json \
       php-phar \
@@ -50,7 +51,7 @@ ADD PEARish.xml /root/PEARish.xml
 
 # Install python linting and neovim plugin
 RUN pip install neovim flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
-RUN pip3 install neovim
+RUN pip3 install neovim jedi
 
 # Install nodejs linting
 # Install JS linting modules
@@ -67,7 +68,13 @@ COPY package/bin/shellcheck /usr/local/bin/
 COPY package/lib/           /usr/local/lib/
 RUN ldconfig /usr/local/lib
 
+# Download my Neovim Repo
+RUN git clone https://github.com/thornycrackers/.nvim.git /root/.config/nvim
 
+# Install neovim Modules
+RUN nvim +PlugInstall +qa
+RUN nvim +UpdateRemotePlugins +qa
 
-ENTRYPOINT ["sh"]
+ADD zshrc /root/.zshrc
 
+CMD ["/bin/zsh"]

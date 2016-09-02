@@ -4,7 +4,7 @@ help:
 build: ## Build the image
 	clear
 	make build-shellcheck
-	docker build -t thornycrackers/alpine .
+	docker build -t thornycrackers/neovim .
 
 build-shellcheck: ## build the shellcheck binaries
 	clear
@@ -12,7 +12,4 @@ build-shellcheck: ## build the shellcheck binaries
 	docker run --rm -it -v $(CURDIR):/mnt thornycrackers/shellcheck
 
 enter: ## Enter the image
-	docker run -i -t thornycrackers/alpine
-
-clearn: ## Remove the shellcheck binaries
-	rm -rf package
+	docker run -i -t thornycrackers/neovim /bin/zsh
