@@ -1,21 +1,18 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+build: ## Build the image
+	clear
+	make build-shellcheck
+	docker build -t thornycrackers/alpine .
 
-build-python: ## Build the neovim python image, this is the base image
-	docker build -f Dockerfile.python -t thornycrackers/neovim:python .
+build-shellcheck: ## build the shellcheck binaries
+	clear
+	docker build -t thornycrackers/shellcheck shellcheck-builder
+	docker run --rm -it -v $(CURDIR):/mnt thornycrackers/shellcheck
 
-build-php: ## Build the neovim php image, depends on python tag
-	docker build -f Dockerfile.php -t thornycrackers/neovim:php .
+enter: ## Enter the image
+	docker run -i -t thornycrackers/alpine
 
-build-javascript: ## Build the neovim javascript image, depends on php tag
-	docker build -f Dockerfile.javascript -t thornycrackers/neovim:javascript .
-
-build-shell: ## Build the neovim shell image, depends on javascript tag
-	docker build -f Dockerfile.shell -t thornycrackers/neovim .
-
-build: ## Build all the whole thing
-	make build-python
-	make build-php
-	make build-javascript
-	make build-shell
+clearn: ## Remove the shellcheck binaries
+	rm -rf package

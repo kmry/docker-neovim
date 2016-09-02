@@ -1,10 +1,13 @@
 # Dockerized Neovim
 Run neovim in a container and be cool like all the other cool kids.
-I like to dockerize all my tools so I am making this repo to dockerize Neovim.
+I'm currently trying to have as little dependancies installed on my host machine as possible.
 
 # Step 1: Build the image
-The first step is to build the the docker image.
-I call mine thornycrackers/neovim so you will have to change that accordingly for the following steps
+The are 2 small steps that occur in this step.
+First we build the binaries for shellcheck, because I want to only have couple of MB's in binaries vs installing haskell.
+This creates a folder called 'package' at the root directory which we then import to our main neovim image.
+The second step is actually compiling the the neovim package which is just installing some stuff and copying the binaries.
+This can all be done with a single make command.
 ```
 $ make build
 ```
