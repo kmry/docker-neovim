@@ -77,4 +77,6 @@ RUN nvim +UpdateRemotePlugins +qa
 
 ADD zshrc /root/.zshrc
 
+WORKDIR /work
+
 CMD ["/bin/zsh"]
