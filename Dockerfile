@@ -50,7 +50,7 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symf
 ADD PEARish.xml /root/PEARish.xml
 
 # Install python linting and neovim plugin
-RUN pip install neovim flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
+RUN pip install neovim flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257 jedi
 RUN pip3 install neovim jedi
 
 # Install nodejs linting
