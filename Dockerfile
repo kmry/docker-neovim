@@ -1,12 +1,14 @@
 FROM alpine:3.3
 
 # Add the testing repo to get neovim
-RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 
 # Install all the needed packages
 RUN apk add --no-cache \
 			# My Stuff
       zsh \
+      unibilium \
       php \
       php-json \
       php-phar \
@@ -17,7 +19,7 @@ RUN apk add --no-cache \
       python-dev \
       python3-dev \
       nodejs \
-      neovim@testing \
+      neovim \
       # Needed for python pip installs
       musl-dev \ 
       gcc
@@ -50,8 +52,8 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symf
 ADD PEARish.xml /root/PEARish.xml
 
 # Install python linting and neovim plugin
-RUN pip install neovim flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257 jedi
-RUN pip3 install neovim jedi
+RUN pip install neovim jedi flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
+RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
 
 # Install nodejs linting
 # Install JS linting modules
