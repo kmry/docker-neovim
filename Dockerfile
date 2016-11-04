@@ -4,13 +4,10 @@ FROM alpine:3.4
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 
-# Makes using the terminal in container usable
-ENV TERM xterm-256color
-
 # Install all the needed packages
 RUN apk add --no-cache \
 			# My Stuff
-      zsh \
+      bash \
       unibilium \
       php5 \
       php5-json \
@@ -25,14 +22,13 @@ RUN apk add --no-cache \
       neovim \
       # Needed for python pip installs
       musl-dev \ 
-      gcc
+      gcc \
+      # Needed for infocmp and tic
+      ncurses
 
 # Configure Git
 RUN git config --global user.email "codyfh@gmail.com"
 RUN git config --global user.name "Cody Hiar"
-
-# Install pip for both versions of python
-RUN python3 -m ensurepip
 
 # Download composer and move it to new location
 RUN curl -sS https://getcomposer.org/installer | php
@@ -75,11 +71,20 @@ RUN ldconfig /usr/local/lib
 RUN git clone https://github.com/thornycrackers/.nvim.git /root/.config/nvim
 
 # Install neovim Modules
-RUN nvim +PlugInstall +qa
-RUN nvim +UpdateRemotePlugins +qa
+RUN nvim +PlugInstall +qall
+RUN nvim +UpdateRemotePlugins +qall
 
-ADD zshrc /root/.zshrc
+# Add some aliases
+ADD bashrc /root/.bashrc
 
 WORKDIR /app
 
+# Better terminal support
+ENV TERM xterm-256color
+
+# Neovim needs this so that <ctrl-h> can work
+RUN infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > /tmp/$TERM.ti
+RUN tic /tmp/$TERM.ti
+
+# Command for the image
 CMD ["/bin/zsh"]

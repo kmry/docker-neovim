@@ -12,13 +12,13 @@ build: ## Build the base image
 	docker build -t thornycrackers/neovim .
 
 up: build ## Bring the container up
-	docker run -dP -v $(CURDIR):/app --name $(CONTAINERNAME) $(IMAGENAME) /bin/zsh -c 'while true; do echo hi; sleep 1; done;'
+	docker run -dP -v $(CURDIR):/app --name $(CONTAINERNAME) $(IMAGENAME) /bin/bash -c 'while true; do echo hi; sleep 1; done;'
 
 down: ## Stop the container
 	docker stop $(CONTAINERNAME) || echo 'No container to stop'
 
 enter: ## Enter the running container
-	docker exec -it $(CONTAINERNAME) /bin/zsh
+	docker exec -it $(CONTAINERNAME) /bin/bash
 
 clean: ## Remove the image and any stopped containers
 	docker rm $(CONTAINERNAME) || echo 'No container to remove'
