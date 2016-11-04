@@ -4,6 +4,9 @@ FROM alpine:3.3
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 
+# Makes using the terminal in container usable
+ENV TERM xterm-256color
+
 # Install all the needed packages
 RUN apk add --no-cache \
 			# My Stuff
@@ -79,6 +82,6 @@ RUN nvim +UpdateRemotePlugins +qa
 
 ADD zshrc /root/.zshrc
 
-WORKDIR /work
+WORKDIR /app
 
 CMD ["/bin/zsh"]

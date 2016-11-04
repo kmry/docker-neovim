@@ -1,15 +1,26 @@
+.PHONY: build
+
+CONTAINERNAME=nvim-env
+IMAGENAME=thornycrackers/neovim
+
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build: ## Build the image
-	clear
-	make build-shellcheck
-	docker build -t thornycrackers/neovim .
-
-build-shellcheck: ## build the shellcheck binaries
-	clear
+build: ## Build the base image
 	docker build -t thornycrackers/shellcheck shellcheck-builder
 	docker run --rm -it -v $(CURDIR):/mnt thornycrackers/shellcheck
+	docker build -t thornycrackers/neovim .
 
-enter: ## Enter the image
-	docker run -i -t thornycrackers/neovim /bin/zsh
+up: build ## Bring the container up
+	docker run -dP -v $(CURDIR):/app --name $(CONTAINERNAME) $(IMAGENAME) /bin/zsh -c 'while true; do echo hi; sleep 1; done;'
+
+down: ## Stop the container
+	docker stop $(CONTAINERNAME) || echo 'No container to stop'
+
+enter: ## Enter the running container
+	docker exec -it $(CONTAINERNAME) /bin/zsh
+
+clean: ## Remove the image and any stopped containers
+	docker rm $(CONTAINERNAME) || echo 'No container to remove'
+	docker rmi $(IMAGENAME) || echo 'No image to remove'
+
