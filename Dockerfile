@@ -19,7 +19,6 @@ RUN apk add --no-cache \
       curl \
       git \
       ack \
-      python-dev \
       python3-dev \
       nodejs \
       neovim \
@@ -32,7 +31,6 @@ RUN git config --global user.email "codyfh@gmail.com"
 RUN git config --global user.name "Cody Hiar"
 
 # Install pip for both versions of python
-RUN python -m ensurepip
 RUN python3 -m ensurepip
 
 # Download composer and move it to new location
@@ -55,7 +53,6 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symf
 ADD PEARish.xml /root/PEARish.xml
 
 # Install python linting and neovim plugin
-RUN pip install neovim jedi flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
 RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
 
 # Install nodejs linting
