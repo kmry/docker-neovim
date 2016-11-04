@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.4
 
 # Add the testing repo to get neovim
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
@@ -12,13 +12,14 @@ RUN apk add --no-cache \
 			# My Stuff
       zsh \
       unibilium \
-      php \
-      php-json \
-      php-phar \
-      php-openssl \
+      php5 \
+      php5-json \
+      php5-phar \
+      php5-openssl \
       curl \
       git \
       ack \
+      python3 \
       python3-dev \
       nodejs \
       neovim \
