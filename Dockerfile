@@ -16,6 +16,8 @@ RUN apk add --no-cache \
       curl \
       git \
       ack \
+      python \
+      python-dev \
       python3 \
       python3-dev \
       nodejs \
@@ -50,6 +52,8 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symf
 ADD PEARish.xml /root/PEARish.xml
 
 # Install python linting and neovim plugin
+RUN python -m ensurepip
+RUN pip install neovim jedi flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
 RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-import-order flake8-quotes pep8 pep8-naming pep257
 
 # Install nodejs linting
@@ -87,4 +91,4 @@ RUN infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > /tmp/$TERM.ti
 RUN tic /tmp/$TERM.ti
 
 # Command for the image
-CMD ["/bin/zsh"]
+CMD ["/bin/bash"]
