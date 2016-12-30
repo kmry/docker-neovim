@@ -10,6 +10,7 @@ build: ## Build the base image
 	docker build -t thornycrackers/shellcheck shellcheck-builder
 	docker run --rm -it -v $(CURDIR):/mnt thornycrackers/shellcheck
 	docker build -t thornycrackers/neovim .
+	docker push $(IMAGENAME)
 
 up: build ## Bring the container up
 	docker run -dP -v $(CURDIR):/app --name $(CONTAINERNAME) $(IMAGENAME) /bin/bash -c 'while true; do echo hi; sleep 1; done;'
@@ -22,5 +23,3 @@ enter: ## Enter the running container
 
 clean: ## Remove the image and any stopped containers
 	docker rm $(CONTAINERNAME) || echo 'No container to remove'
-	docker rmi $(IMAGENAME) || echo 'No image to remove'
-
