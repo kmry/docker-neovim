@@ -21,5 +21,5 @@ down: ## Stop the container
 enter: ## Enter the running container
 	docker exec -it $(CONTAINERNAME) /bin/bash
 
-clean: ## Remove the image and any stopped containers
+clean: down ## Remove the image and any stopped containers
 	docker rm $(CONTAINERNAME) || echo 'No container to remove'
