@@ -1,4 +1,4 @@
-FROM mitchty/alpine-ghc:latest
+FROM mitchty/alpine-ghc:8.0
 
 MAINTAINER Nikyle Nguyen <NLKNguyen@MSN.com>
 
