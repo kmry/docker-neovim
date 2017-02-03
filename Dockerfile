@@ -84,7 +84,7 @@ RUN nvim +UpdateRemotePlugins +qall
 # Add some aliases
 ADD bashrc /root/.bashrc
 
-WORKDIR /app
+WORKDIR /root/app
 
 # Better terminal support
 ENV TERM xterm-256color
