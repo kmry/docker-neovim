@@ -9,7 +9,7 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositor
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 # Install all the needed packages
 RUN apk add --no-cache \
-			# My Stuff
+      # My Stuff
       bash \
       unibilium \
       php5 \
