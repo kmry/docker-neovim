@@ -90,7 +90,7 @@ ADD bashrc /root/.bashrc
 WORKDIR /root/app
 
 # Better terminal support
-ENV TERM xterm-256color
+ENV TERM screen-256color
 
 # Neovim needs this so that <ctrl-h> can work
 RUN infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > /tmp/$TERM.ti
