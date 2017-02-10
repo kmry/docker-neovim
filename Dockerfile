@@ -59,6 +59,9 @@ RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes
 # Add isort config
 ADD isort.cfg /root/.isort.cfg
 
+# Add flake8 config
+ADD flake8 /root/.flake8
+
 # Install nodejs linting
 # Install JS linting modules
 # The reason for the version specifications is an 'Unmet peerDependancy error'
