@@ -25,6 +25,8 @@ RUN apk add --no-cache \
       python3-dev \
       nodejs \
       neovim \
+      neovim-doc \
+      ctags \
       # Needed for python pip installs
       musl-dev \ 
       gcc \
@@ -57,8 +59,6 @@ ADD PEARish.xml /root/PEARish.xml
 RUN python -m ensurepip
 RUN pip install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8 pep8-naming pep257 isort
 RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8 pep8-naming pep257 isort
-# Add isort config
-ADD isort.cfg /root/.isort.cfg
 # Add flake8 config
 ADD flake8 /root/.flake8
 
@@ -90,3 +90,5 @@ ADD nvim /root/.config/nvim
 # Install neovim Modules
 RUN nvim +PlugInstall +qall
 RUN nvim +UpdateRemotePlugins +qall
+# Add isort config, also changes often
+ADD isort.cfg /root/.isort.cfg
