@@ -27,6 +27,7 @@ RUN apk add --no-cache \
       neovim \
       neovim-doc \
       ctags \
+      vimdiff \
       # Needed for python pip installs
       musl-dev \ 
       gcc \
@@ -76,6 +77,8 @@ RUN ldconfig /usr/local/lib
 ########################################
 # Add some aliases
 ADD bashrc /root/.bashrc
+# Add my git config
+ADD gitconfig /root/.gitconfig
 # Change the workdir, Put it inside root so I can see neovim settings in finder
 WORKDIR /root/app
 # Better terminal support
