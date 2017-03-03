@@ -73,6 +73,21 @@ COPY package/lib/           /usr/local/lib/
 RUN ldconfig /usr/local/lib
 
 ########################################
+# Javscript
+########################################
+# Install nodejs linting
+# Install JS linting modules
+# Install sass linting
+RUN npm install -g \
+      eslint@\^3.14.0 eslint-config-airbnb-base eslint-plugin-import eslint-plugin-vue \
+      sass-lint@\^1.10.2
+# Install the eslintrc.js
+ADD eslintrc.js /root/.eslintrc.js
+# Install the sass-lint.yaml
+ADD sass-lint.yaml /root/.sass-lint.yaml
+
+
+########################################
 # Personalizations
 ########################################
 # Add some aliases
