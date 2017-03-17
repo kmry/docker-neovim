@@ -60,8 +60,6 @@ ADD PEARish.xml /root/PEARish.xml
 RUN python -m ensurepip
 RUN pip install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8-naming pep257 isort
 RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8-naming pep257 isort
-# Add flake8 config
-ADD flake8 /root/.flake8
 
 ########################################
 # Shellcheck
@@ -108,6 +106,8 @@ ADD nvim /root/.config/nvim
 # Install neovim Modules
 RUN nvim +PlugInstall +qall
 RUN nvim +UpdateRemotePlugins +qall
+# Add flake8 config, don't trigger a long build process
+ADD flake8 /root/.flake8
 # Add local vim-options, can override the one inside
 ADD vim-options /root/.config/nvim/plugged/vim-options
 # Add isort config, also changes often
