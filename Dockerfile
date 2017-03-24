@@ -91,7 +91,7 @@ ADD sass-lint.yaml /root/.sass-lint.yaml
 # Add some aliases
 ADD bashrc /root/.bashrc
 # Add my git config
-ADD gitconfig /root/.gitconfig
+ADD gitconfig /etc/gitconfig
 # Change the workdir, Put it inside root so I can see neovim settings in finder
 WORKDIR /root/app
 # Better terminal support
