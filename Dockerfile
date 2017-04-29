@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:3.5
 
 ########################################
 # System Stuff
@@ -7,6 +7,10 @@ FROM alpine:3.4
 # Add the testing repo to get neovim
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+
+# Update
+RUN apk update
+
 # Install all the needed packages
 RUN apk add --no-cache \
       # My Stuff
@@ -32,7 +36,9 @@ RUN apk add --no-cache \
       musl-dev \ 
       gcc \
       # Needed for infocmp and tic
-      ncurses
+      ncurses \
+      # Needed for php libcrypto.so errors
+      libressl2.4-libcrypto
 
 ########################################
 # PHP
