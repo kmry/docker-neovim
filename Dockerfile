@@ -1,44 +1,44 @@
-FROM alpine:3.5
+FROM ubuntu:16.04
+MAINTAINER Cody Hiar <codyfh@gmail.com>
 
 ########################################
 # System Stuff
 ########################################
 
-# Add the testing repo to get neovim
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+# Better terminal support
+ENV TERM screen-256color
+ENV DEBIAN_FRONTEND noninteractive
 
-# Update
-RUN apk update
-
-# Install all the needed packages
-RUN apk add --no-cache \
-      # My Stuff
+# Update and install
+RUN apt-get update && apt-get install -y \
       bash \
-      unibilium \
-      php5 \
-      php5-json \
-      php5-phar \
-      php5-openssl \
       curl \
       git \
-      ack \
-      python \
+      software-properties-common \
       python-dev \
-      python3 \
+      python-pip \
       python3-dev \
-      nodejs \
-      neovim \
-      neovim-doc \
+      python3-pip \
       ctags \
-      vimdiff \
-      # Needed for python pip installs
-      musl-dev \ 
-      gcc \
-      # Needed for infocmp and tic
-      ncurses \
-      # Needed for php libcrypto.so errors
-      libressl2.4-libcrypto
+      shellcheck \
+      locales
+
+# Generally a good idea to have these, extensions sometimes need them
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# Install PHP 5.6/Neovim
+RUN add-apt-repository ppa:ondrej/php
+RUN add-apt-repository ppa:neovim-ppa/stable
+# Install custom packages
+RUN apt-get update && apt-get install -y \
+      php5.6 \
+      php5.6-zip \
+      php5.6-xml \
+      neovim
+
 
 ########################################
 # PHP
@@ -58,37 +58,14 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/escapestudios/symf
 # Install custom linting
 ADD PEARish.xml /root/PEARish.xml
 
+
 ########################################
 # Python
 ########################################
 
 # Install python linting and neovim plugin
-RUN python -m ensurepip
 RUN pip install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8-naming pep257 isort
 RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8-naming pep257 isort
-
-########################################
-# Shellcheck
-########################################
-
-# Copy over the shellcheck binaries
-COPY package/bin/shellcheck /usr/local/bin/
-COPY package/lib/           /usr/local/lib/
-RUN ldconfig /usr/local/lib
-
-########################################
-# Javscript
-########################################
-# Install nodejs linting
-# Install JS linting modules
-# Install sass linting
-RUN npm install -g \
-      eslint@\^3.14.0 eslint-config-airbnb-base eslint-plugin-import eslint-plugin-vue \
-      sass-lint@\^1.10.2
-# Install the eslintrc.js
-ADD eslintrc.js /root/.eslintrc.js
-# Install the sass-lint.yaml
-ADD sass-lint.yaml /root/.sass-lint.yaml
 
 
 ########################################
@@ -100,8 +77,6 @@ ADD bashrc /root/.bashrc
 ADD gitconfig /etc/gitconfig
 # Change the workdir, Put it inside root so I can see neovim settings in finder
 WORKDIR /root/app
-# Better terminal support
-ENV TERM screen-256color
 # Neovim needs this so that <ctrl-h> can work
 RUN infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > /tmp/$TERM.ti
 RUN tic /tmp/$TERM.ti

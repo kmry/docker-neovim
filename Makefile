@@ -11,8 +11,6 @@ setup: ## Clone down additional repos that are needed for building
 	git clone git@github.com:thornycrackers/vim-options.git
 
 build: ## Build the base image
-	docker build -t thornycrackers/shellcheck shellcheck-builder
-	docker run --rm -it -v $(CURDIR):/mnt thornycrackers/shellcheck
 	docker build -t thornycrackers/neovim .
 	docker push $(IMAGENAME)
 
