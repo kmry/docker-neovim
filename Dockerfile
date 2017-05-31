@@ -85,8 +85,8 @@ CMD ["/bin/bash"]
 # Add nvim config. Put this last since it changes often
 ADD nvim /root/.config/nvim
 # Install neovim Modules
-RUN nvim +PlugInstall +qall
-RUN nvim +UpdateRemotePlugins +qall
+RUN nvim -i NONE -c PlugInstall -c quitall > /dev/null 2>&1
+RUN nvim -i NONE -c UpdateRemotePlugins -c quitall > /dev/null 2>&1
 # Add flake8 config, don't trigger a long build process
 ADD flake8 /root/.flake8
 # Add local vim-options, can override the one inside
