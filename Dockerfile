@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
       python3-pip \
       ctags \
       shellcheck \
+      netcat \
       locales
 
 # Generally a good idea to have these, extensions sometimes need them
