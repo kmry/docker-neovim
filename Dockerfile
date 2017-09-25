@@ -83,11 +83,12 @@ WORKDIR /root/app
 RUN infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > /tmp/$TERM.ti
 RUN tic /tmp/$TERM.ti
 # Command for the image
+CMD ["/bin/bash"]
+# Add nvim config. Put this last since it changes often
 ADD nvim /root/.config/nvim
-RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # Install neovim Modules
-RUN nvim -c PlugInstall -c quitall
-RUN nvim -c UpdateRemotePlugins -c quitall
+RUN nvim -i NONE -c PlugInstall -c quitall > /dev/null 2>&1
+RUN nvim -i NONE -c UpdateRemotePlugins -c quitall > /dev/null 2>&1
 # Add flake8 config, don't trigger a long build process
 ADD flake8 /root/.flake8
 # Add local vim-options, can override the one inside
