@@ -22,6 +22,8 @@ RUN apt-get update && apt-get install -y \
       ctags \
       shellcheck \
       netcat \
+      ranger \ 
+      ack-grep \
       locales
 
 # Generally a good idea to have these, extensions sometimes need them
