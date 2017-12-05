@@ -13,6 +13,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
       bash \
       curl \
+      wget \
       git \
       software-properties-common \
       python-dev \
@@ -24,6 +25,7 @@ RUN apt-get update && apt-get install -y \
       netcat \
       ranger \ 
       ack-grep \
+      sqlite3 \
       locales
 
 # Generally a good idea to have these, extensions sometimes need them
@@ -70,6 +72,16 @@ ADD PEARish.xml /root/PEARish.xml
 # Install python linting and neovim plugin
 RUN pip install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8-naming pep257 isort
 RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8-naming pep257 isort mypy
+
+
+########################################
+# Dasht Documentation
+########################################
+ADD dasht/bin/* /usr/local/bin/
+ENV DASHT_DOCSETS_DIR /root/.local/share/dasht/docsets
+RUN mkdir -p /root/.local/share/dasht/docsets
+RUN dasht-docsets-install --force django
+RUN dasht-docsets-install --force python_3
 
 
 ########################################
