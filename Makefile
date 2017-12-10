@@ -9,10 +9,10 @@ help:
 setup: ## Clone down additional repos that are needed for building
 	git clone git@github.com:thornycrackers/.nvim.git nvim
 	git clone git@github.com:thornycrackers/vim-options.git
+	git clone https://github.com/sunaku/dasht
 
 build: ## Build the base image
 	docker build -t thornycrackers/neovim .
-	docker push $(IMAGENAME)
 
 up: build ## Bring the container up
 	docker run -dP -v $(CURDIR):/root/app --name $(CONTAINERNAME) $(IMAGENAME) /bin/bash -c 'while true; do echo hi; sleep 1; done;'
@@ -25,3 +25,6 @@ enter: ## Enter the running container
 
 clean: down ## Remove the image and any stopped containers
 	docker rm $(CONTAINERNAME) || echo 'No container to remove'
+	
+push:
+	docker push $(IMAGENAME)
