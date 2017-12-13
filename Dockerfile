@@ -11,6 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Update and install
 RUN apt-get update && apt-get install -y \
+      htop \
       bash \
       curl \
       wget \
