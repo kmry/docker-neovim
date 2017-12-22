@@ -1,6 +1,6 @@
 FROM nimlang/nim
 MAINTAINER Cody Hiar <codyfh@gmail.com>
-FORKER for Nim kmry <kmr_rtf@live.jp> 
+# FORKER for Nim kmry <kmr_rtf@live.jp> 
 ########################################
 # System Stuff
 ########################################
