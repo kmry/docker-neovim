@@ -1,4 +1,4 @@
-# Dockerized Neovim
+# Dockerized Neovim for Nimmer
 Run neovim in a container and be cool like all the other cool kids.
 Mr. Cody Hiar is  trying to have as little dependancies installed on my host machine as possible.
 I fork it for Nimmer(Nim user).
