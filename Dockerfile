@@ -75,15 +75,6 @@ RUN pip install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes 
 RUN pip3 install neovim jedi flake8 flake8-docstrings flake8-isort flake8-quotes pep8-naming pep257 isort mypy
 
 
-########################################
-# Dasht Documentation
-########################################
-ADD dasht/bin/* /usr/local/bin/
-ENV DASHT_DOCSETS_DIR /root/.local/share/dasht/docsets
-RUN mkdir -p /root/.local/share/dasht/docsets
-RUN dasht-docsets-install --force django
-RUN dasht-docsets-install --force python_3
-
 
 ########################################
 # Personalizations
@@ -100,13 +91,13 @@ RUN tic /tmp/$TERM.ti
 # Command for the image
 CMD ["/bin/bash"]
 # Add nvim config. Put this last since it changes often
-ADD nvim /root/.config/nvim
+#ADD nvim /root/.config/nvim
 # Install neovim Modules
 RUN nvim -i NONE -c PlugInstall -c quitall > /dev/null 2>&1
 RUN nvim -i NONE -c UpdateRemotePlugins -c quitall > /dev/null 2>&1
 # Add flake8 config, don't trigger a long build process
 ADD flake8 /root/.flake8
 # Add local vim-options, can override the one inside
-ADD vim-options /root/.config/nvim/plugged/vim-options
+#ADD vim-options /root/.config/nvim/plugged/vim-options
 # Add isort config, also changes often
-ADD isort.cfg /root/.isort.cfg
+#ADD isort.cfg /root/.isort.cfg
