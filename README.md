@@ -1,6 +1,7 @@
 # Dockerized Neovim
 Run neovim in a container and be cool like all the other cool kids.
-I'm currently trying to have as little dependancies installed on my host machine as possible.
+Mr. Cody Hiar is  trying to have as little dependancies installed on my host machine as possible.
+I fork it for Nimmer(Nim user).
 
 # Step 1: Build the image
 The are 2 small steps that occur in this step.
